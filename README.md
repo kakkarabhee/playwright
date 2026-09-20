@@ -25,6 +25,9 @@ npx playwright test
 # run a single file
 npx playwright test tests/example.spec.ts
 
+# run a folder
+npx playwright test tests/basics
+
 # run in headed mode (a visible browser window)
 npx playwright test --headed
 
@@ -48,7 +51,10 @@ npx playwright show-report
 ```
 .
 ├── tests/                  # test specs
-│   └── example.spec.ts
+│   ├── example.spec.ts     # starter test against playwright.dev
+│   └── basics/             # recorded login flows
+│       ├── test1.spec.ts   # app.thetestingacademy.com — email step, back to home
+│       └── test2.spec.ts   # courses.thetestingacademy.com — email + password sign in
 ├── playwright.config.ts    # Playwright configuration
 └── package.json
 ```
@@ -64,6 +70,28 @@ Settings live in [playwright.config.ts](playwright.config.ts):
 - `trace: 'on-first-retry'` — a trace is recorded when a test is retried, viewable with `npx playwright show-trace`
 - `headless: false` — a browser window is shown during local runs
 - `projects` — Chromium (Desktop Chrome) is enabled; Firefox, WebKit and mobile viewports are available as commented-out entries
+
+## The `tests/basics` specs
+
+These were captured with the Playwright recorder rather than written by hand:
+
+```bash
+npx playwright codegen https://app.thetestingacademy.com/
+```
+
+The recorder opens a browser, follows along as you click and type, and writes the
+matching `page.getByRole(...)` calls into a spec you can paste into `tests/basics`.
+
+- **test1.spec.ts** — opens `app.thetestingacademy.com`, clicks Login, fills in an email
+  address, continues, then returns via the "← Back to Home" link.
+- **test2.spec.ts** — opens `courses.thetestingacademy.com`, fills the sign-in form, and
+  works through the reCAPTCHA challenge inside its iframes.
+
+Both are click-through recordings with no `expect` assertions yet, so they only fail if a
+step cannot find its element. `test2.spec.ts` also targets reCAPTCHA iframes by generated
+names (`iframe[name="a-j3t614am12xa"]`) and picks challenge tiles by index, both of which
+change on every load — expect it to need re-recording, and treat it as a reference for
+frame handling rather than a test to run in CI.
 
 ## Writing a test
 

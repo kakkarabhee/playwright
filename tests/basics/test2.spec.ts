@@ -1,0 +1,30 @@
+import { test, expect } from '@playwright/test';
+
+test('test', async ({ page }) => {
+  await page.goto('https://courses.thetestingacademy.com/');
+  await page.getByRole('link', { name: 'Sign In' }).click();
+  await page.getByRole('textbox', { name: 'Email Address' }).click();
+  await page.getByRole('textbox', { name: 'Email Address' }).fill('test@abc.com');
+  await page.getByRole('textbox', { name: 'Email Address' }).press('Tab');
+  await page.getByRole('textbox', { name: 'Password' }).fill('123456');
+  await page.getByRole('button', { name: 'Login' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).click();
+  await page.getByRole('textbox', { name: 'Password' }).fill('12345');
+  await page.locator('iframe[name="a-j3t614am12xa"]').contentFrame().getByRole('checkbox', { name: 'I\'m not a robot' }).click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().locator('[id="2"]').click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().locator('[id="5"]').click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().locator('[id="3"]').click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().getByRole('button', { name: 'Verify' }).click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().locator('[id="3"]').click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().locator('[id="8"]').click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().locator('[id="2"]').click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().getByRole('button', { name: 'Verify' }).click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().locator('[id="6"]').click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().locator('[id="2"]').click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().locator('[id="3"]').click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().locator('[id="7"]').click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().locator('[id="11"]').click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().locator('[id="10"]').click();
+  await page.locator('iframe[name="c-j3t614am12xa"]').contentFrame().getByRole('button', { name: 'Verify' }).click();
+  await page.getByRole('button', { name: 'Login' }).click();
+});
