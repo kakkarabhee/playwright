@@ -84,14 +84,14 @@ matching `page.getByRole(...)` calls into a spec you can paste into `tests/basic
 
 - **test1.spec.ts** — opens `app.thetestingacademy.com`, clicks Login, fills in an email
   address, continues, then returns via the "← Back to Home" link.
-- **test2.spec.ts** — opens `courses.thetestingacademy.com`, fills the sign-in form, and
-  works through the reCAPTCHA challenge inside its iframes.
+- **test2.spec.ts** — opens `courses.thetestingacademy.com`, fills the sign-in form with an
+  email and password, submits, retypes the password and submits again.
 
 Both are click-through recordings with no `expect` assertions yet, so they only fail if a
-step cannot find its element. `test2.spec.ts` also targets reCAPTCHA iframes by generated
-names (`iframe[name="a-j3t614am12xa"]`) and picks challenge tiles by index, both of which
-change on every load — expect it to need re-recording, and treat it as a reference for
-frame handling rather than a test to run in CI.
+step cannot find its element. The reCAPTCHA steps the recorder captured for `test2.spec.ts`
+were dropped: they addressed the challenge iframes by generated names such as
+`iframe[name="a-j3t614am12xa"]` and picked tiles by index, and both change on every load.
+If the site shows the challenge on a run, that test will stop at the Login button.
 
 ## Writing a test
 
